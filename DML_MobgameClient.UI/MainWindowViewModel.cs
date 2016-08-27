@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using DML_MobgameClient.UI.MVVM.Utils;
+using DML_MobgameClient.UI.Panels.BreedingCalculator;
 using DML_MobgameClient.UI.Panels.Home;
 using DML_MobgameClient.UI.Panels.HowToBreed;
 
@@ -14,7 +15,12 @@ namespace DML_MobgameClient.UI
         public IList<IPageViewModel> PageViewModels { get; }
         public MainWindowViewModel()
         {
-            PageViewModels = new List<IPageViewModel> {new HomeViewModel(), new HowToBreedViewModel()};
+            PageViewModels = new List<IPageViewModel>
+            {
+                new HomeViewModel(),
+                new HowToBreedViewModel(),
+                new BreedingCalculatorViewModel()
+            };
             _currentPageViewModel = PageViewModels[0];
         }
 
@@ -44,7 +50,7 @@ namespace DML_MobgameClient.UI
 
         private void ChangeViewModel(IPageViewModel viewModel)
         {
-            if(!PageViewModels.Contains(viewModel))
+            if (!PageViewModels.Contains(viewModel))
                 PageViewModels.Add(viewModel);
 
             CurrentPageViewModel = PageViewModels
