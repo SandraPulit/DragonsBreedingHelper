@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
@@ -11,7 +12,7 @@ namespace DML_MobgameClient.DataProvider
     {
         private HtmlDocument _source;
 
-        public IList<Dragon> Dragons => GetDragonsFromSource();
+        public ObservableCollection<Dragon> Dragons => GetDragonsFromSource();
 
         public void Init()
         {
@@ -25,30 +26,20 @@ namespace DML_MobgameClient.DataProvider
             }
         }
 
-        private IList<Dragon> GetDragonsFromSource()
+        private ObservableCollection<Dragon> GetDragonsFromSource()
         {
-            var dragonsList = new List<Dragon>();
+            var dragonsList = new ObservableCollection<Dragon>();
 
             foreach (var dragonHtmlNode in
                 _source.DocumentNode.SelectNodes(@".//*[@id='dragonMenu']/ul/li/a/div[@class='info']"))
             {
-                var dragonElements = new List<Element>();
+                var dragonElements = new ObservableCollection<Element>();
 
                 foreach (var elementHtmlNode in
                     dragonHtmlNode.SelectNodes(".//div/div/img"))
                 {
-                    var request = (HttpWebRequest)WebRequest.Create(elementHtmlNode.Attributes["src"].Value);
-                    request.Method = "GET";
-                    using (var response = (HttpWebResponse)request.GetResponse())
-                    {
-                        using (var stream = response.GetResponseStream())
-                        {
-                            Image img = Image.FromStream(stream);
-                            var elementAlt = elementHtmlNode.Attributes["alt"].Value;
-                            var elementName = elementAlt.Split(' ')[3];
-                            dragonElements.Add(new Element(elementName, img));
-                        }
-                    }
+                    var elementStr = elementHtmlNode.Attributes["alt"].Value.Split(' ')[3];
+                    dragonElements.Add(Element.Create(elementStr.ToLower()));
                 }
                 var dragonName = dragonHtmlNode.SelectNodes(".//div/span[@class='listDragonName']")[0].InnerHtml;
                 var dragon = new Dragon(dragonName, dragonElements);

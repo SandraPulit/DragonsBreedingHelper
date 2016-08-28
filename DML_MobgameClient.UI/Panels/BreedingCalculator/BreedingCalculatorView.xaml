@@ -10,6 +10,9 @@
     <UserControl.DataContext>
         <viewModels:DragonsViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
@@ -24,26 +27,30 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="159*"/>
             </Grid.ColumnDefinitions>
-            
-            <toolkit:WatermarkTextBox x:Name="DragonFilter1"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
-            <ListBox x:Name="DragonList1" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding Dragons}">
+
+            <toolkit:WatermarkTextBox Text="{Binding Path=FilterText1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DragonFilter1"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
+            <ListBox x:Name="DragonList1" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding FilteredDragons1.View}">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                <DataTemplate>
                         <Grid Margin="0,2">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Name}" Grid.Column="0"/>
-                            <ItemsControl Grid.Column="1" ItemsSource="{Binding Elements}">
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding Elements}" >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding Icon}" Height="30" Width="30"/>
+                                        <Image Source="{Binding IconSource}" Height="30" Width="30"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </Grid>
-
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -51,13 +58,37 @@
             <Button x:Name="BreedButton" Grid.Column="1" Height="200" MouseEnter="BreedButton_MouseEnter" MouseLeave="BreedButton_MouseLeave" RenderTransformOrigin="0.5, 0.5">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/Resources/BreedingHeart.png"/>
+                        <Image Source="/DML_MobgameClient.UI;component/Resources/BreedingHeart.png"/>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            
-            <toolkit:WatermarkTextBox x:Name="DragonFilter2"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="2"/>
-            <ListBox x:Name="DragonList2" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="2"/>
+
+            <toolkit:WatermarkTextBox Text="{Binding Path=FilterText2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DragonFilter2"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="2"/>
+            <ListBox x:Name="DragonList2" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="2" ItemsSource="{Binding FilteredDragons2.View}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" Grid.Column="0"/>
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding Elements}" >
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding IconSource}" Height="30" Width="30"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </UserControl>
