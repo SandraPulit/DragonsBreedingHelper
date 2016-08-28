@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Data;
 using DML_MobgameClient.DataProvider;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
@@ -21,13 +22,17 @@ namespace DML_MobgameClient.UI.ViewModels
             FilteredDragons1.Filter += (x, y) =>
             {
                 var dragon = y.Item as Dragon;
-                if (dragon != null) y.Accepted = FilterText1.Length == 0 || dragon.Name.Contains(FilterText1.ToUpper());
+                if (dragon != null) y.Accepted = FilterText1.Length == 0 
+                    || dragon.Name.ToUpper().Contains(FilterText1.ToUpper())
+                    || dragon.Elements.Any(e => e.Name.ToUpper().Contains(FilterText1.ToUpper()));
             };
             FilteredDragons2 = new CollectionViewSource { Source = Dragons };
             FilteredDragons2.Filter += (x, y) =>
             {
                 var dragon = y.Item as Dragon;
-                if (dragon != null) y.Accepted = FilterText2.Length == 0 || dragon.Name.Contains(FilterText2.ToUpper());
+                if (dragon != null) y.Accepted = FilterText2.Length == 0
+                    || dragon.Name.ToUpper().Contains(FilterText2.ToUpper())
+                    || dragon.Elements.Any(e => e.Name.ToUpper().Contains(FilterText2.ToUpper()));
             };
         }
 
