@@ -11,13 +11,12 @@ namespace DML_MobgameClient.UI.ViewModels
 {
     public class DragonsViewModel : ObservableObject
     {
-        private MobgameWebsiteProvider dataProvider;
+        private readonly MobgameWebsiteProvider _dataProvider;
         private string _filterText = string.Empty;
 
         public DragonsViewModel()
         {
-            dataProvider = new MobgameWebsiteProvider();
-            dataProvider.Init();
+            _dataProvider = new MobgameWebsiteProvider(); //TODO: Globalne
             FilteredDragons1 = new CollectionViewSource {Source = Dragons};
             FilteredDragons1.Filter += (x, y) =>
             {
@@ -36,7 +35,7 @@ namespace DML_MobgameClient.UI.ViewModels
             };
         }
 
-        private ObservableCollection<Dragon> Dragons => dataProvider.Dragons;
+        private ObservableCollection<Dragon> Dragons => _dataProvider.Dragons;
         public CollectionViewSource FilteredDragons1 { get; }
 
         public string FilterText1
@@ -61,6 +60,11 @@ namespace DML_MobgameClient.UI.ViewModels
                 FilteredDragons2.View.Refresh();
                 OnPropertyChanged(nameof(FilteredDragons2));
             }
+        }
+
+        public ObservableCollection<DragonRecipe> FindDragonsBreedingRecepture(Dragon selectedDragon)
+        {
+            return _dataProvider.DragonFormula(selectedDragon);
         }
     }
 }

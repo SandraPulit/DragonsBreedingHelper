@@ -14,6 +14,5 @@ namespace DML_MobgameClient.DomainViewModels.DragonsDomain
 
         public string Name { get; }
         public IList<Element> Elements { get; }
-
     }
 }

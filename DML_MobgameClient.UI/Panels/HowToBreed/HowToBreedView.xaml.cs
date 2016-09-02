@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DML_MobgameClient.UI.Panels.HowToBreed
 {
@@ -24,5 +12,18 @@ namespace DML_MobgameClient.UI.Panels.HowToBreed
         {
             InitializeComponent();
         }
+        #region BreedButton Transformations
+        private void BreedButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Button breedingButton = sender as Button;
+            if (breedingButton != null) breedingButton.RenderTransform = new RotateTransform(13.0);
+        }
+
+        private void BreedButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Button breedingButton = sender as Button;
+            if (breedingButton != null) breedingButton.RenderTransform = null;
+        }
+        #endregion
     }
 }

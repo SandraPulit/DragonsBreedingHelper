@@ -2,13 +2,10 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Image = System.Windows.Controls.Image;
 
 namespace DML_MobgameClient.DomainViewModels.DragonsDomain
 {
@@ -25,7 +22,7 @@ namespace DML_MobgameClient.DomainViewModels.DragonsDomain
         public ImageSource IconSource { get; }
 
         [DllImport("gdi32")]
-        static extern int DeleteObject(IntPtr o);
+        private static extern int DeleteObject(IntPtr o);
 
         private static BitmapSource LoadBitmap(Bitmap source)
         {
@@ -41,13 +38,11 @@ namespace DML_MobgameClient.DomainViewModels.DragonsDomain
             {
                 DeleteObject(ip);
             }
-
             return bs;
         }
 
         //private static BitmapSource GetBitmapSource(string resPath)
         //{
-
         //    //Stream myStream = myAssembly.GetManifestResourceStream(resPath);
         //    //Bitmap image = new Bitmap(myStream);
         //   // return LoadBitmap(image);

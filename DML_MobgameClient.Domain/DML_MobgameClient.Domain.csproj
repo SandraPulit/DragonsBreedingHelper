@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DragonsDomain\Dragon.cs" />
+    <Compile Include="DragonsDomain\DragonRecipe.cs" />
     <Compile Include="DragonsDomain\Element.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
