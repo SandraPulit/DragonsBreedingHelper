@@ -21,5 +21,11 @@ namespace DML_MobgameClient.DataProvider
             var recipeProvider = new MobgameDragonsRecipeProvider();
             return recipeProvider.GetFormula(selectedDragon);
         }
+
+        public ObservableCollection<BreedingResult> CalculateBreeding(Dragon parent1, Dragon parent2)
+        {
+            var breedingCalculatorProvider = new MobgameBreedingCalculatorProvider();
+            return breedingCalculatorProvider.Breed(parent1, parent2);
+        }
     }
 }

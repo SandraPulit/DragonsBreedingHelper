@@ -66,5 +66,10 @@ namespace DML_MobgameClient.UI.ViewModels
         {
             return _dataProvider.DragonFormula(selectedDragon);
         }
+
+        public ObservableCollection<BreedingResult> BreedDragons(Dragon selectedDragon1, Dragon selectedDragon2)
+        {
+            return _dataProvider.CalculateBreeding(selectedDragon1, selectedDragon2);
+        }
     }
 }

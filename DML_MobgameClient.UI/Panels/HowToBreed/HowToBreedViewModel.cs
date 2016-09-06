@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
 using DML_MobgameClient.UI.MVVM.Utils;
@@ -19,6 +20,8 @@ namespace DML_MobgameClient.UI.Panels.HowToBreed
         {
             DragonRecipes = DragonsViewModel.FindDragonsBreedingRecepture(SelectedDragon);
             OnPropertyChanged(nameof(DragonRecipes));
+            if (DragonRecipes == null)
+                MessageBox.Show($"Dragon {SelectedDragon.Name} is not breedable.");
         });
     }
 }

@@ -26,8 +26,12 @@ namespace DML_MobgameClient.DataProvider
 
             var dragonsRecipeList = new ObservableCollection<DragonRecipe>();
             var dragonsProvider = new MobgameDragonsProvider();
-
-            foreach (var recipe in _source.DocumentNode.SelectNodes(".//*[@id='page']/div/div/div/section/div[2]/div[div[contains(@class, 'info')]]"))
+            var dragonFormulasNodes =
+                _source.DocumentNode.SelectNodes(
+                    ".//*[@id='page']/div/div/div/section/div[2]/div[div[contains(@class, 'info')]]");
+            if (dragonFormulasNodes == null)
+                return null; //Dragon not breedable
+            foreach (var recipe in dragonFormulasNodes)
             {
                 var firstParent = recipe.SelectSingleNode(".//div[2]/div[1]/strong/a[1]").InnerText;
                 var secondParent = recipe.SelectSingleNode(".//div[2]/div[1]/strong/a[2]").InnerText;
