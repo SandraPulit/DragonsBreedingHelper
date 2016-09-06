@@ -96,10 +96,10 @@
                 <ColumnDefinition Width="148*"/>
             </Grid.ColumnDefinitions>
 
-            <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DragonFilter1"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
-            <ListBox x:Name="DragonList1" SelectedItem="{Binding SelectedDragon1}" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding DragonVM.FilteredDragons1.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
+            <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
+            <ListBox SelectedItem="{Binding SelectedDragon1}" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding DragonVM.FilteredDragons1.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
 
-            <Button x:Name="BreedButton" Command="{Binding BreedButtonClicked}" ToolTip="Breed" Grid.Column="1" Height="200" MouseEnter="BreedButton_MouseEnter" MouseLeave="BreedButton_MouseLeave" RenderTransformOrigin="0.5, 0.5">
+            <Button Command="{Binding BreedButtonClicked}" CommandParameter="{Binding ElementName=BreedingResultsListBox}" ToolTip="Breed" Grid.Column="1" Height="200" MouseEnter="BreedButton_MouseEnter" MouseLeave="BreedButton_MouseLeave" RenderTransformOrigin="0.5, 0.5">
                 <Button.Template>
                     <ControlTemplate>
                         <Image Source="/DML_MobgameClient.UI;component/Resources/BreedingHeart.png"/>
@@ -111,7 +111,7 @@
             <ListBox SelectedItem="{Binding SelectedDragon2}" VerticalAlignment="Stretch" Margin="10,33,10,10" Grid.Column="2" ItemsSource="{Binding DragonVM.FilteredDragons2.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
         </Grid>
         <Grid Grid.Row="2">
-            <ListBox VerticalAlignment="Stretch" Margin="10,33,10,10" ItemsSource="{Binding BreedingResults}" ItemTemplate="{StaticResource BreedingListTemplate}"/>
+            <ListBox Name="BreedingResultsListBox" VerticalAlignment="Stretch" Margin="10,33,10,10" ItemsSource="{Binding BreedingResults}" ItemTemplate="{StaticResource BreedingListTemplate}"/>
         </Grid>
     </Grid>
 </UserControl>

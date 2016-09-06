@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace DML_MobgameClient.UI.Panels.BreedingCalculator
@@ -28,5 +29,11 @@ namespace DML_MobgameClient.UI.Panels.BreedingCalculator
             if (breedingButton != null) breedingButton.RenderTransform = null;
         }
         #endregion
+
+        private void FrameworkElement_OnSourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            var lb = sender as ListBox;
+            lb?.ScrollIntoView(lb.Items[0]);
+        }
     }
 }

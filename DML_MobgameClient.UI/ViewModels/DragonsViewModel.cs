@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using DML_MobgameClient.DataProvider;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
@@ -12,7 +12,8 @@ namespace DML_MobgameClient.UI.ViewModels
     public class DragonsViewModel : ObservableObject
     {
         private readonly MobgameWebsiteProvider _dataProvider;
-        private string _filterText = string.Empty;
+        private string _filterText1 = string.Empty;
+        private string _filterText2 = string.Empty;
 
         public DragonsViewModel()
         {
@@ -40,10 +41,10 @@ namespace DML_MobgameClient.UI.ViewModels
 
         public string FilterText1
         {
-            get { return _filterText; }
+            get { return _filterText1; }
             set
             {
-                _filterText = value;
+                _filterText1 = value;
                 FilteredDragons1.View.Refresh();
                 OnPropertyChanged(nameof(FilteredDragons1));
             }
@@ -53,10 +54,10 @@ namespace DML_MobgameClient.UI.ViewModels
 
         public string FilterText2
         {
-            get { return _filterText; }
+            get { return _filterText2; }
             set
             {
-                _filterText = value;
+                _filterText2 = value;
                 FilteredDragons2.View.Refresh();
                 OnPropertyChanged(nameof(FilteredDragons2));
             }
@@ -67,7 +68,7 @@ namespace DML_MobgameClient.UI.ViewModels
             return _dataProvider.DragonFormula(selectedDragon);
         }
 
-        public ObservableCollection<BreedingResult> BreedDragons(Dragon selectedDragon1, Dragon selectedDragon2)
+        public Task<ObservableCollection<BreedingResult>> BreedDragons(Dragon selectedDragon1, Dragon selectedDragon2)
         {
             return _dataProvider.CalculateBreeding(selectedDragon1, selectedDragon2);
         }

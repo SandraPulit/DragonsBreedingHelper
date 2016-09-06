@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Net;
+using System.Windows;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
 using HtmlAgilityPack;
 
@@ -25,7 +27,7 @@ namespace DML_MobgameClient.DataProvider
         public ObservableCollection<BreedingResult> Breed(Dragon parent1, Dragon parent2)
         {
             Init(parent1, parent2);
-
+            
             var childs = _source.DocumentNode.SelectNodes(".//*[@id='hatchery']/ul/li");
             if (childs == null)
                 return null;
@@ -39,11 +41,10 @@ namespace DML_MobgameClient.DataProvider
                 var odds = $"{Math.Round(oddsUnformatted, 2)}%";
                 var breedingTimeInSeconds = int.Parse(child.SelectSingleNode(".//div/span[3]").InnerText.Split('.')[0]);
                 var breedingTime = PrepareTimeAsString(breedingTimeInSeconds);
-                var tmp = child.SelectSingleNode(".//div/span[4]").InnerText;
                 var expectedTimeInSeconds = int.Parse(child.SelectSingleNode(".//div/span[4]").InnerText.Split('.')[0]);
                 var expectedTime = PrepareTimeAsString(expectedTimeInSeconds);
-                var childDragon = dragonsProvider.GetDragonByName(name);
-                breedingResults.Add(new BreedingResult(childDragon, breedingTime, odds, expectedTime));
+                Application.Current.Dispatcher.Invoke(
+                    () => breedingResults.Add(new BreedingResult(dragonsProvider.GetDragonByName(name), breedingTime, odds, expectedTime)));
             }
             return breedingResults;
         }

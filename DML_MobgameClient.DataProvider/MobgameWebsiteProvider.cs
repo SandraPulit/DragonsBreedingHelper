@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Net;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
-using HtmlAgilityPack;
 
 namespace DML_MobgameClient.DataProvider
 {
@@ -22,10 +22,11 @@ namespace DML_MobgameClient.DataProvider
             return recipeProvider.GetFormula(selectedDragon);
         }
 
-        public ObservableCollection<BreedingResult> CalculateBreeding(Dragon parent1, Dragon parent2)
+        public Task<ObservableCollection<BreedingResult>> CalculateBreeding(Dragon parent1, Dragon parent2)
         {
             var breedingCalculatorProvider = new MobgameBreedingCalculatorProvider();
-            return breedingCalculatorProvider.Breed(parent1, parent2);
+            var task = Task.Run(() => breedingCalculatorProvider.Breed(parent1, parent2));
+            return task;
         }
     }
 }
