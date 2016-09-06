@@ -6,8 +6,10 @@
              xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:dragonsDomain="clr-namespace:DML_MobgameClient.DomainViewModels.DragonsDomain;assembly=DML_MobgameClient.DomainViewModels"
              xmlns:breedingCalculator="clr-namespace:DML_MobgameClient.UI.Panels.BreedingCalculator"
+             xmlns:xamlSpinnersWpf="clr-namespace:xamlSpinnersWPF;assembly=xamlSpinnersWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800"
+             x:Name="Control">
     <UserControl.DataContext>
         <breedingCalculator:BreedingCalculatorViewModel/>
     </UserControl.DataContext>
@@ -79,39 +81,141 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+        <Storyboard x:Key="LoadingStoryboard1">
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=LoadingBlackMask}"
+                        Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="{x:Static Visibility.Visible}" KeyTime="0"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=LoadingBlackMask}"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="0.0"
+                                 To="1.0"
+                                 Duration="0:0:0.2"/>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="0.0"
+                                 To="1.0"
+                                 Duration="0:0:0.2"/>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                 From="1.0"
+                                 To="3.0"
+                                 Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                 From="1.0"
+                                 To="3.0"
+                                 Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LoadingBlurEffect"
+                                 Storyboard.TargetProperty="Radius"
+                                 From="0"
+                                 To="10"
+                                 Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="LoadingStoryboard2">
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=LoadingBlackMask}"
+                        Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=LoadingBlackMask}"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0.0"
+                                 Duration="0:0:0:0.2"/>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0.0"
+                                 Duration="0:0:0:0.2"/>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                 From="3.0"
+                                 To="1.0"
+                                 Duration="0:0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.Target="{Binding ElementName=SpinnerBox}"
+                                 Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                 From="3.0"
+                                 To="1.0"
+                                 Duration="0:0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="LoadingBlurEffect"
+                                 Storyboard.TargetProperty="Radius"
+                                 From="10"
+                                 To="0"
+                                 Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="> Breeding Calculator" FontSize="48" Grid.Row="0"/>
-        <TextBlock Text="Find what cool dragons you can breed with two selected dragons" TextWrapping="Wrap"  Margin="0,60,0,0" FontSize="22" Grid.Row="0"/>
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect x:Name="LoadingBlurEffect" Radius="0"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="> Breeding Calculator" FontSize="48" Grid.Row="0"/>
+            <TextBlock Text="Find what cool dragons you can breed with two selected dragons" TextWrapping="Wrap"  Margin="0,60,0,0" FontSize="22" Grid.Row="0"/>
 
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="148*"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="148*"/>
-            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="148*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="148*"/>
+                </Grid.ColumnDefinitions>
 
-            <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
-            <ListBox SelectedItem="{Binding SelectedDragon1}" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding DragonVM.FilteredDragons1.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
+                <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="0"/>
+                <ListBox SelectedItem="{Binding SelectedDragon1}" VerticalAlignment="Stretch"  Margin="10,33,10,10"  Grid.Column="0" ItemsSource="{Binding DragonVM.FilteredDragons1.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
 
-            <Button Command="{Binding BreedButtonClicked}" CommandParameter="{Binding ElementName=BreedingResultsListBox}" ToolTip="Breed" Grid.Column="1" Height="200" MouseEnter="BreedButton_MouseEnter" MouseLeave="BreedButton_MouseLeave" RenderTransformOrigin="0.5, 0.5">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Image Source="/DML_MobgameClient.UI;component/Resources/BreedingHeart.png"/>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                <Button Command="{Binding BreedButtonClicked}" CommandParameter="{Binding ElementName=Control}" ToolTip="Breed" Grid.Column="1" Height="200" MouseEnter="BreedButton_MouseEnter" MouseLeave="BreedButton_MouseLeave" RenderTransformOrigin="0.5, 0.5">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Image Source="/DML_MobgameClient.UI;component/Resources/BreedingHeart.png"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
 
-            <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DragonFilter2"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="2"/>
-            <ListBox SelectedItem="{Binding SelectedDragon2}" VerticalAlignment="Stretch" Margin="10,33,10,10" Grid.Column="2" ItemsSource="{Binding DragonVM.FilteredDragons2.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
+                <toolkit:WatermarkTextBox Text="{Binding Path=DragonVM.FilterText2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DragonFilter2"  Watermark="Filter dragons" Height="23" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="2"/>
+                <ListBox SelectedItem="{Binding SelectedDragon2}" VerticalAlignment="Stretch" Margin="10,33,10,10" Grid.Column="2" ItemsSource="{Binding DragonVM.FilteredDragons2.View}" ItemTemplate="{StaticResource DragonListTemplate}"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <ListBox Name="BreedingResultsListBox" VerticalAlignment="Stretch" Margin="10,33,10,10" ItemsSource="{Binding BreedingResults}" ItemTemplate="{StaticResource BreedingListTemplate}"/>
+            </Grid>
         </Grid>
-        <Grid Grid.Row="2">
-            <ListBox Name="BreedingResultsListBox" VerticalAlignment="Stretch" Margin="10,33,10,10" ItemsSource="{Binding BreedingResults}" ItemTemplate="{StaticResource BreedingListTemplate}"/>
+        <Grid x:Name="LoadingBlackMask"  Background="#66000000" Opacity="0" Visibility="Collapsed">
+            <StackPanel x:Name="SpinnerBox" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <StackPanel.RenderTransform>
+                    <ScaleTransform ScaleX="3" ScaleY="3"/>
+                </StackPanel.RenderTransform>
+                <xamlSpinnersWpf:ucSpinnerDotCircle VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Fetching data..." VerticalAlignment="Center" Margin="0,10,0,0" Foreground="White" FontSize="8" FontFamily="Segoe UI Light" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

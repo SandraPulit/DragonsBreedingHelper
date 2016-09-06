@@ -16,10 +16,11 @@ namespace DML_MobgameClient.DataProvider
             return dragonsProvider.GetDragonsList();
         }
 
-        public ObservableCollection<DragonRecipe> DragonFormula(Dragon selectedDragon)
+        public Task<ObservableCollection<DragonRecipe>> DragonFormula(Dragon selectedDragon)
         {
             var recipeProvider = new MobgameDragonsRecipeProvider();
-            return recipeProvider.GetFormula(selectedDragon);
+            var task = Task.Run(() => recipeProvider.GetFormula(selectedDragon));
+            return task;
         }
 
         public Task<ObservableCollection<BreedingResult>> CalculateBreeding(Dragon parent1, Dragon parent2)

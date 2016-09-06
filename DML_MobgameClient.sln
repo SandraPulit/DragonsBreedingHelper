@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DML_MobgameClient.DataProvi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DML_MobgameClient.Domain", "DML_MobgameClient.Domain\DML_MobgameClient.Domain.csproj", "{30D3D155-4B03-4DC8-9FEE-E5F22EECA54F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xamlSpinnersWPF", "xamlSpinnersWPF\xamlSpinnersWPF.csproj", "{8C768879-D553-4B16-A7C8-905C7614732F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{30D3D155-4B03-4DC8-9FEE-E5F22EECA54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D3D155-4B03-4DC8-9FEE-E5F22EECA54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D3D155-4B03-4DC8-9FEE-E5F22EECA54F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C768879-D553-4B16-A7C8-905C7614732F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C768879-D553-4B16-A7C8-905C7614732F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C768879-D553-4B16-A7C8-905C7614732F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C768879-D553-4B16-A7C8-905C7614732F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

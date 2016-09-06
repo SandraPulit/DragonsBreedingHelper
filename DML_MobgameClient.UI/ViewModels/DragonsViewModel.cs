@@ -63,7 +63,7 @@ namespace DML_MobgameClient.UI.ViewModels
             }
         }
 
-        public ObservableCollection<DragonRecipe> FindDragonsBreedingRecepture(Dragon selectedDragon)
+        public Task<ObservableCollection<DragonRecipe>> FindDragonsBreedingRecepture(Dragon selectedDragon)
         {
             return _dataProvider.DragonFormula(selectedDragon);
         }

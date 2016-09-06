@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
+using System.Windows;
 using DML_MobgameClient.DomainViewModels.DragonsDomain;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
@@ -11,7 +12,7 @@ namespace DML_MobgameClient.DataProvider
         private void Init(Dragon selectedDragon)
         {
             _source = new HtmlDocument { OptionUseIdAttribute = true };
-            var request = (HttpWebRequest)WebRequest.Create($"http://mobga.me/dragon-mania-legends/how-to-breed-{selectedDragon.Name.Replace(' ','-').ToLower()}/");
+            var request = (HttpWebRequest)WebRequest.Create($"http://mobga.me/dragon-mania-legends/how-to-breed-{selectedDragon.Name.Replace(' ', '-').ToLower()}/");
             request.Method = "GET";
             using (var response = (HttpWebResponse)request.GetResponse())
             {
@@ -38,10 +39,13 @@ namespace DML_MobgameClient.DataProvider
                 var probability = recipe.SelectSingleNode(".//div[2]/div[2]/span[2]").InnerText;
                 var expectedTime = recipe.SelectSingleNode(".//div[2]/div[3]/span[2]").InnerText;
 
-                var firstDragon = dragonsProvider.GetDragonByName(firstParent);
-                var secondDragon = dragonsProvider.GetDragonByName(secondParent);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var firstDragon = dragonsProvider.GetDragonByName(firstParent);
+                    var secondDragon = dragonsProvider.GetDragonByName(secondParent);
 
-                dragonsRecipeList.Add(new DragonRecipe(firstDragon, secondDragon, probability, expectedTime));
+                    dragonsRecipeList.Add(new DragonRecipe(firstDragon, secondDragon, probability, expectedTime));
+                });
             }
             return dragonsRecipeList;
         }

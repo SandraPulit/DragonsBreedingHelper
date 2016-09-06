@@ -179,6 +179,10 @@
       <Project>{30D3D155-4B03-4DC8-9FEE-E5F22EECA54F}</Project>
       <Name>DML_MobgameClient.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\xamlSpinnersWPF\xamlSpinnersWPF.csproj">
+      <Project>{8c768879-d553-4b16-a7c8-905c7614732f}</Project>
+      <Name>xamlSpinnersWPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

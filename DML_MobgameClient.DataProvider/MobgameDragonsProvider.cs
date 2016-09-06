@@ -55,7 +55,15 @@ namespace DML_MobgameClient.DataProvider
         public Dragon GetDragonByName(string name)
         {
             Init();
-            return GetDragonsList().First(d=>string.Equals(d.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            var ret = GetDragonsList().FirstOrDefault(d=>string.Equals(d.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            if (ret == null)
+                return
+                    GetDragonsList()
+                        .FirstOrDefault(
+                            d =>
+                                string.Equals(d.Name, name.Replace(' ', '-'),
+                                    StringComparison.CurrentCultureIgnoreCase));
+            return ret;
         }
     }
 }
